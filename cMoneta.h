@@ -6,11 +6,11 @@ using namespace sf;
 class cMoneta :
 	public Drawable
 {
-	virtual void draw(RenderTarget& target, RenderStates states) const override;
+	//virtual void draw(RenderTarget& target, RenderStates states) const override;
 	CircleShape shape_;
-	bool destroyed();
+	//bool destroyed();
 public:
-	cMoneta(float t_x, float t_y, float t_width, float t_height);
+	/*cMoneta(float t_x, float t_y, float t_width, float t_height);
 	
 	void draw(RenderTarget& target, RenderStates state) const override;
 	void update();
@@ -20,8 +20,8 @@ public:
 	float bottom();
 	float top();
 	bool isDestroyed();
-	void destroy();
-	~cMoneta() = default;
-	cMoneta() = delete;
+	void destroy();*/
+	~cMoneta() ;
+ 
 };
 
