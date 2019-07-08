@@ -6,24 +6,34 @@ using namespace sf;
 class cGracz :
 	public Drawable
 {
-	RectangleShape shape_;
-	const float gracz_w_{ 40.0f }; // szerokosc gracza
-	const float gracz_h_{ 80.0f }; // wysokosc gracza
-	const float gracz_vel_{ 0.20f }; // predkosc gracza
-	Vector2f velocity{ gracz_vel_,0.0f }; //ruch gracza tylko w poziomie
-	//virtual void draw(RenderTarget& target, RenderStates states) const override;
+	Sprite gracz_;
+	Texture tex_gracz;
+    Sprite healthPoint_;
+    Texture hp3;
+    Texture hp2;
+    Texture hp1;
+    Texture hp0;
+    Texture gmo;
+    Sprite end;
+    Text score_;
+    Font font;
 
-public:/*
+    float gracz_vel_{ 12.10f };
+    Vector2f velocity{ gracz_vel_,0.0f };
+	virtual void draw(RenderTarget& target, RenderStates states) const override;
+	int hp_{ 3 };
+    int score{ 0 };
+    String sco;
+
+public:
 	cGracz(float t_x, float t_y);
-	~cGracz() = default;
-	cGracz() = delete;
-	void draw(RenderTarget& target, RenderStates state) const override;
-	void update();
-	Vector2f getPosition();
-	float left();
-	float right();
-	float down();
-	float up();
-	*/
+    ~cGracz() override = default;
+    int update();
+    void setHp(int hp);
+    int getHp();
+    void setScore(int score1);
+    int getScore();
+    FloatRect getGlobalBounds();
+
 };
 

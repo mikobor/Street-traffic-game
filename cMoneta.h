@@ -1,4 +1,6 @@
 #pragma once
+#include "cGracz.h"
+#include "cPrzeszkoda.h"
 #include <SFML\Graphics.hpp>
 
 using namespace sf;
@@ -6,22 +8,21 @@ using namespace sf;
 class cMoneta :
 	public Drawable
 {
-	//virtual void draw(RenderTarget& target, RenderStates states) const override;
-	CircleShape shape_;
-	//bool destroyed();
+    Sprite moneta_;
+    Texture moneta1_tex;
+    Texture moneta2_tex;
+    float moneta_vel{ 8.10f };
+    Vector2f moneta_velocity_{ 0,moneta_vel };
+    int score_{300};
+
+
+    virtual void draw(RenderTarget& target, RenderStates states) const override;
 public:
-	/*cMoneta(float t_x, float t_y, float t_width, float t_height);
+    cMoneta();
 	
-	void draw(RenderTarget& target, RenderStates state) const override;
-	void update();
-	Vector2f getPosition();
-	float left();
-	float right();
-	float bottom();
-	float top();
-	bool isDestroyed();
-	void destroy();*/
-	~cMoneta() ;
+
+    void update(cPrzeszkoda &przeszkoda,cGracz &gracz);
+    ~cMoneta()override=default ;
  
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "cGracz.h"
 //using namespace sf;
 #include <SFML\Graphics.hpp>
 using namespace sf;
@@ -13,17 +14,15 @@ class cPalma :
 	Texture tex_palm2_;
 	float palm_vel_{ 10.10f };
 	Vector2f palm_velocity_{0.0f, palm_vel_};
-
 	void draw(RenderTarget& target, RenderStates states) const override;
 
 public:
-	void update();
+    void update( cGracz &gracz);
 	
-	Vector2f getPosition1();
-	Vector2f getPosition2();
+
 
 	cPalma(float p_y);
-	~cPalma()=default;
+    ~cPalma()override=default;
 
 };
 
