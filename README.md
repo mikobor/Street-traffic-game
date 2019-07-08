@@ -7,3 +7,7 @@
 - cGracz - odpowiedzialna za obiekt gracza,
 - cMoneta - odpowiedzialna za obiekt elementu punktowanego;
 - cPrzeszkoda - odpowiedzialna za obiekt blokujący trasę gry;
+- cPalma - odpowiedzialna za elementy mapy;
+- cPas - odpowiedzialna za elementy mapy
+- cMenu - odpowiedzialna za menu
+-cHighscore - odpowiedzialna za tablice wyników;
