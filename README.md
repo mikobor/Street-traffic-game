@@ -10,4 +10,4 @@
 - cPalma - odpowiedzialna za elementy mapy;
 - cPas - odpowiedzialna za elementy mapy;
 - cMenu - odpowiedzialna za menu;
--cHighscore - odpowiedzialna za tablice wyników;
+- cHighscore - odpowiedzialna za tablice wyników;
