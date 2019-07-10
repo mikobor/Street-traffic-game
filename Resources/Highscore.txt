@@ -1,10 +1,1 @@
-Borys,6074
-Mikolaj,2352
-Koreanczyk,1962
-Mikolajek,176
-Boris,165
-,0
-,0
-,0
-,0
-,0
+
