@@ -3,10 +3,10 @@
 
 cPrzeszkoda::cPrzeszkoda( float t_y )
 {
-    taxi_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/taxi.png");
-    auto_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/auto2.png");
-    pickup_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/pickup.png");
-    trach_buffer.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/Trach.wav");
+    taxi_tex.loadFromFile("Resources/taxi.png");
+    auto_tex.loadFromFile("Resources/auto2.png");
+    pickup_tex.loadFromFile("Resources/pickup.png");
+    trach_buffer.loadFromFile("Resources/Trach.wav");
     trach.setBuffer(trach_buffer);
     auto1_.setPosition(100, t_y);
     auto2_.setPosition(300, t_y);
@@ -26,11 +26,12 @@ void cPrzeszkoda::draw(RenderTarget & target, RenderStates states) const
 void cPrzeszkoda::update(cGracz &gracz)
 {
 
-    this->przeszkoda_vel=this->przeszkoda_vel+0.002f;
+    przeszkoda_vel=przeszkoda_vel+0.0008f;
+    przeszkoda_velocity_={0,przeszkoda_vel};
     if(gracz.getHp()<=0)
         this->przeszkoda_vel=0;
 
-    if(this->auto1_.getPosition().y>800||this->auto2_.getPosition().y>800||this->auto3_.getPosition().y>800)
+    if(this->auto1_.getPosition().y>900||this->auto2_.getPosition().y>900||this->auto3_.getPosition().y>900)
     {
         this->losowosc=rand()%120;
         switch(losowosc%6)

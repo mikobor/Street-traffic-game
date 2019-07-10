@@ -4,8 +4,8 @@
 
 cMoneta::cMoneta()
 {
-    moneta1_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/pigcoin.png");
-    moneta2_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/Bitcoin.png");
+    moneta1_tex.loadFromFile("Resources/pigcoin.png");
+    moneta2_tex.loadFromFile("Resources/Bitcoin.png");
     moneta_.setScale(0.2f,0.2f);
     moneta_.setPosition(-155,890);
     moneta_.setTexture(moneta1_tex);
@@ -40,15 +40,14 @@ void cMoneta::update(cPrzeszkoda &przeszkoda, cGracz &gracz)
         }
     }
 
+    this->moneta_vel=moneta_vel+0.0008f;
+    moneta_velocity_={0,moneta_vel};
+
     if(moneta_.getPosition().y<=860)
-    {
-        this->moneta_vel=moneta_vel+0.002f;
         this->moneta_.move(this->moneta_velocity_);
-    }
 
     if(gracz.getGlobalBounds().intersects(this->moneta_.getGlobalBounds()))
     {
-
         gracz.setScore(gracz.getScore()+score_);
         moneta_.setPosition(0,890);
         switch (rand()%8)
@@ -62,9 +61,8 @@ void cMoneta::update(cPrzeszkoda &przeszkoda, cGracz &gracz)
             score_=300;
             break;
         }
-
     }
-    if(moneta_.getPosition().y>=860)
+    if(moneta_.getPosition().y>=1060)
     {
         switch (rand()%8)
         {
@@ -80,7 +78,7 @@ void cMoneta::update(cPrzeszkoda &przeszkoda, cGracz &gracz)
     }
 
     if(przeszkoda.getGlobalBounds1().intersects(this->moneta_.getGlobalBounds())||przeszkoda.getGlobalBounds2().intersects(this->moneta_.getGlobalBounds())||przeszkoda.getGlobalBounds3().intersects(this->moneta_.getGlobalBounds()))
-        this->moneta_.setPosition(this->moneta_.getPosition().x,this->moneta_.getPosition().y-100);
+        this->moneta_.setPosition(this->moneta_.getPosition().x,this->moneta_.getPosition().y-150);
 
 
 }

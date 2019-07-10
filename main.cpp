@@ -8,6 +8,7 @@
 #include "cPrzeszkoda.h"
 #include "cMoneta.h"
 #include "cMenu.h"
+#include "chighscore.h"
 
 using namespace sf;
 
@@ -16,92 +17,179 @@ int main()
 {
     RenderWindow okno(VideoMode(800, 800, 32), "Street Traffic Game");
 	okno.setFramerateLimit(60);
-
     srand(time(NULL));
-    cMenu menu;
-    Sprite startpage;
-    Texture startpage_tex;
-    Texture menu_tex;
-    menu_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/menu1.png");
-    startpage_tex.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/startpage.jpg");
-    startpage.setTexture(startpage_tex);
+    Font font;
+    font.loadFromFile("Resources/font.otf");
+    Sprite background;
+    Texture background_tex;
+    background_tex.loadFromFile("Resources/startpage.jpg");
+    background.setTexture(background_tex);
     int licznik=1;
-
-
+    cMenu menu;
 
 
 	while (okno.isOpen())
 	{
-        /*
-		Event zdarzenie;
-		while (okno.pollEvent(zdarzenie))
-		{
-
-			if (zdarzenie.type == Event::Closed)
-				okno.close();
-
-			if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::Escape)
-				okno.close();
-
-			if (zdarzenie.type == Event::MouseButtonPressed && zdarzenie.mouseButton.button == Mouse::Middle)
-				soundtrack_ini.play();
-
-            if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::P)
-            {
-                gracz.setHp(gracz.getHp()-1);
-                gracz.setScore(gracz.getScore()-100);
-            }
-        }*/
-
-
         if(licznik<180)
         {
-            okno.draw(startpage);
+            okno.draw(background);
             licznik++;
             okno.display();
         }
         else
         {
-            startpage.setTexture(menu_tex);
-            Event zdarzenie1;
-            while (okno.pollEvent(zdarzenie1))
+            przykry_przyklad_uzycia_goto:
+            string nick;
+            cGracz gracz(360,605);
+            cPalma palm1(0), palm2(300), palm3(600);
+            cPas pas1(0), pas2(200), pas3(400), pas4(600), pas5(-200);
+            vector<cPalma> palmy{ palm1,palm2,palm3};
+            vector<cPas> pasy{ pas1,pas2,pas3,pas4,pas5 };
+            cPrzeszkoda przeszkoda(-550);
+            cMoneta moneta;
+
+            okno.clear();
+            background_tex.loadFromFile("Resources/menu1.png");
+            background.setTexture(background_tex);
+            Event zdarzenie;
+
+            while (okno.pollEvent(zdarzenie))
             {
 
-                if (zdarzenie1.type == Event::Closed)
+                if (zdarzenie.type == Event::Closed)
                  okno.close();
 
-                if (zdarzenie1.type == Event::KeyReleased && zdarzenie1.key.code == Keyboard::Up)
+                if (zdarzenie.type == Event::KeyReleased && zdarzenie.key.code == Keyboard::Up)
                     menu.up();
 
-                if (zdarzenie1.type == Event::KeyReleased && zdarzenie1.key.code == Keyboard::Down)
+                if (zdarzenie.type == Event::KeyReleased && zdarzenie.key.code == Keyboard::Down)
                     menu.down();
 
-                if (zdarzenie1.type == Event::KeyReleased && zdarzenie1.key.code == Keyboard::Return)
+                if (zdarzenie.type == Event::KeyReleased && zdarzenie.key.code == Keyboard::Return)
                 {
                     switch(menu.getWybrany())
                     {
                     case 0:
                     {
-                        Sprite mapa;
-                        Texture tex_map;
-                        tex_map.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/mapa.png");
-                        mapa.setTexture(tex_map);
-                        cPalma palm1(0), palm2(300), palm3(600);
-                        cPas pas1(0), pas2(200), pas3(400), pas4(600), pas5(-200);
-                        vector<cPalma> palmy{ palm1,palm2,palm3};
-                        vector<cPas> pasy{ pas1,pas2,pas3,pas4,pas5 };
-                        Sound soundtrack_ini;
-                        SoundBuffer soundtrack1;
-                        soundtrack1.loadFromFile("D:/Projekty QT++/build-STG_test-Desktop_Qt_5_12_3_MSVC2017_32bit-Debug/debug/Soundtrack.wav");
-                        soundtrack_ini.setBuffer(soundtrack1);
-                        soundtrack_ini.play();
-                        cGracz gracz(360,605);
-                        cPrzeszkoda przeszkoda(-550);
-                        cMoneta moneta;
+                        background_tex.loadFromFile("Resources/mapa.png");
+                        background.setTexture(background_tex);
+                        Sound soundtrack;
+                        SoundBuffer soundtrack_;
+                        soundtrack_.loadFromFile("Resources/soundtrack_taxi.wav");
+                        soundtrack.setBuffer(soundtrack_);
+                        soundtrack.play();
+                        soundtrack.setLoop(true);
 
                         while (okno.isOpen())
                         {
-                            okno.draw(mapa);
+                            okno.draw(background);
+                            new Event (zdarzenie);
+                            Event zdarzenie1;
+                            while (okno.pollEvent(zdarzenie))
+                            {
+                                if (zdarzenie.type == Event::Closed)
+                                    okno.close();
+
+                                if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::Escape)
+                                    okno.close();
+
+                                if (zdarzenie.type == Event::MouseButtonPressed && zdarzenie.mouseButton.button == Mouse::Middle)
+                                    soundtrack.stop();
+                            }
+
+                            for (auto itr = palmy.begin(); itr != palmy.end(); itr++)
+                            {
+                                itr->update(gracz);
+                                okno.draw(*itr);
+                            }
+
+                            for (auto itr = pasy.begin(); itr != pasy.end(); itr++)
+                            {
+                                itr->update(gracz);
+                                okno.draw(*itr);
+                            }
+
+                            przeszkoda.update(gracz);
+                            okno.draw(przeszkoda);
+                            moneta.update(przeszkoda,gracz);
+                            okno.draw(moneta);
+                            gracz.update();
+                            okno.draw(gracz);
+
+                            if(gracz.getHp()<=0)
+                            {
+                                okno.clear();
+                                background_tex.loadFromFile("Resources/podaj_nick.png");
+                                background.setTexture(background_tex);
+                                soundtrack.stop();
+                                Text nick_;
+
+                                nick_.setCharacterSize(30);
+                                nick_.setFillColor(Color::White);
+                                nick_.setFont(font);
+                                while(okno.isOpen())
+                                {
+
+                                    while (okno.pollEvent(zdarzenie1))
+                                    {
+
+                                        if (zdarzenie1.type == Event::Closed)
+                                            okno.close();
+
+                                        if (zdarzenie1.type == Event::TextEntered)
+                                        {
+                                            if (zdarzenie1.text.unicode <= 126&&zdarzenie1.text.unicode>=33)
+                                                nick+=static_cast<char>(zdarzenie1.text.unicode);
+                                            else if(zdarzenie1.text.unicode==8)
+                                                nick=nick.substr(0,nick.length()-1);
+                                        }
+                                        if(zdarzenie1.type==Event::KeyPressed && zdarzenie1.key.code==Keyboard::Return)
+                                        {
+                                            okno.clear();
+                                            background_tex.loadFromFile("Resources/highscore.png");
+                                            background.setTexture(background_tex);
+                                            cHighscore highscore1;
+                                            highscore1.update(gracz.getScore()/6,nick);
+                                            while(okno.isOpen())
+                                            {
+                                                new Event (zdarzenie);
+                                                while (okno.pollEvent(zdarzenie))
+                                                {
+
+                                                    if (zdarzenie.type == Event::Closed)
+                                                        okno.close();
+
+                                                    if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::Escape)
+                                                        goto przykry_przyklad_uzycia_goto;
+                                                }
+                                                okno.draw(background);
+                                                highscore1.draw(okno);
+                                                okno.display();
+                                            }
+                                        }
+                                    }
+                                    nick_.setPosition(400-static_cast<float>((nick.length()*8)),450);
+                                    nick_.setString(nick);
+                                    okno.draw(background);
+                                    okno.draw(nick_);
+                                    okno.display();
+                                }
+                            }
+                            okno.display();
+                        }
+
+                        break;
+
+                    }
+                     case 1:
+                    {
+                        okno.clear();
+                        background_tex.loadFromFile("Resources/highscore.png");
+                        background.setTexture(background_tex);
+                        cHighscore highscore;
+                        highscore.read();
+                        while(okno.isOpen())
+                        {
                             Event zdarzenie;
                             while (okno.pollEvent(zdarzenie))
                             {
@@ -110,64 +198,28 @@ int main()
                                     okno.close();
 
                                 if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::Escape)
-                                    okno.close();
-
-                                if (zdarzenie.type == Event::MouseButtonPressed && zdarzenie.mouseButton.button == Mouse::Middle)
-                                    soundtrack_ini.play();
-
-                                if (zdarzenie.type == Event::KeyPressed && zdarzenie.key.code == Keyboard::P)
-                                {
-                                    gracz.setHp(gracz.getHp()-1);
-                                    gracz.setScore(gracz.getScore()-100);
-                                }
+                                    goto przykry_przyklad_uzycia_goto;
                             }
-
-                                //wyswietlanie oraz przesowanie palm
-
-                                for (auto itr = palmy.begin(); itr != palmy.end(); itr++)
-                                {
-
-                                    itr->update(gracz);
-                                    okno.draw(*itr);
-
-                                }
-
-                                //wyswietlanie oraz przesowanie pasow
-                                for (auto itr = pasy.begin(); itr != pasy.end(); itr++)
-                                {
-                                    itr->update(gracz);
-                                    okno.draw(*itr);
-                                }
-
-                                przeszkoda.update(gracz);
-                                okno.draw(przeszkoda);
-                                moneta.update(przeszkoda,gracz);
-                                okno.draw(moneta);
-                                gracz.update();
-                                okno.draw(gracz);
-                                if(gracz.getHp()<=0)
-                                soundtrack_ini.stop();
-                                okno.display();
-                            }
-                            break;
+                            okno.draw(background);
+                            highscore.draw(okno);
+                            okno.display();
                         }
-                        case 1:
-                        {
-                            break;
-                        }
-                        case 2:
-                        {
-                            return 0;
-                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        return 0;
                     }
                 }
+            }
 
-                okno.draw(startpage);
+                okno.draw(background);
                 menu.draw(okno);
                 okno.display();
             }
         }
     }
+
 	return 0;
 }
 
