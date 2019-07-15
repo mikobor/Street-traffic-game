@@ -49,7 +49,7 @@ void cMoneta::update(cPrzeszkoda &przeszkoda, cGracz &gracz)
     if(gracz.getGlobalBounds().intersects(this->moneta_.getGlobalBounds()))
     {
         gracz.setScore(gracz.getScore()+score_);
-        moneta_.setPosition(0,890);
+        moneta_.setPosition(0,860);
         switch (rand()%8)
         {
         case 0:

@@ -17,6 +17,7 @@ class cPas :
 
 public:
     void update(cGracz &gracz);
+    //cPas()=default;
     cPas(float p_y);
     ~cPas() override=default;
 

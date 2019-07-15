@@ -20,12 +20,13 @@ class cPrzeszkoda :
     Texture pickup_tex;
     float przeszkoda_vel{ 10.10f };
     Vector2f przeszkoda_velocity_{ 0,przeszkoda_vel };
-    int losowosc;
+    int losowosc=1;
     bool destroyed_=false;
     Sound trach;
     SoundBuffer trach_buffer;
 public:
     cPrzeszkoda( float t_y);
+    //cPrzeszkoda()=default;
     void update( cGracz &gracz);
     FloatRect getGlobalBounds1();
     FloatRect getGlobalBounds2();

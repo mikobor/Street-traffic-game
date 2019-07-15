@@ -45,6 +45,7 @@ void cHighscore::read()
     }
     plik.close();
 
+
     for(int i=0;i<10;i++)
     {
         linia=to_string(i+1)+"."+" "+nicki_[i]+" ";
@@ -56,6 +57,9 @@ void cHighscore::read()
         linia=linia+to_string(punkty_[i]);
         wyniki_[i].setString(linia);
     }
+    if (Keyboard::isKeyPressed(Keyboard::Key::Escape))
+        gotomenu=true;
+
 }
 
 void cHighscore::update(int punkt, string nick)

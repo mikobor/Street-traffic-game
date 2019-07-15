@@ -17,9 +17,7 @@ class cPalma :
 
 public:
     void update( cGracz &gracz);
-
-
-
+    //cPalma()=default;
     cPalma(float p_y);
     ~cPalma()override=default;
 

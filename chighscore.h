@@ -12,6 +12,7 @@ class cHighscore
     int punkty_[10];
     Text wyniki_[10];
     Font font;
+    bool gotomenu=false;
 
 public:
     cHighscore();

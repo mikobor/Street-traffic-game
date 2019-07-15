@@ -8,12 +8,15 @@ cPrzeszkoda::cPrzeszkoda( float t_y )
     pickup_tex.loadFromFile("Resources/pickup.png");
     trach_buffer.loadFromFile("Resources/Trach.wav");
     trach.setBuffer(trach_buffer);
-    auto1_.setPosition(100, t_y);
-    auto2_.setPosition(300, t_y);
-    auto3_.setPosition(500, t_y);
+    auto1_.setPosition(120, t_y);
+    auto2_.setPosition(325, t_y);
+    auto3_.setPosition(520, t_y);
     auto1_.setScale(0.5,0.35f);
     auto2_.setScale(0.5,0.35f);
     auto3_.setScale(0.5,0.35f);
+    auto1_.setTexture(taxi_tex);
+    auto2_.setTexture(pickup_tex);
+    auto3_.setTexture(auto_tex);
 }
 
 void cPrzeszkoda::draw(RenderTarget & target, RenderStates states) const
@@ -69,7 +72,7 @@ void cPrzeszkoda::update(cGracz &gracz)
 
         }
         this->auto1_.setPosition(120,-550);
-        this->auto2_.setPosition(320,-550);
+        this->auto2_.setPosition(325,-550);
         this->auto3_.setPosition(520,-550);
 
         losowosc=rand()%120;
@@ -116,9 +119,9 @@ void cPrzeszkoda::update(cGracz &gracz)
        if(destroyed_==true)
        {
            trach.play();
-           this->auto1_.setPosition(120,800);
-           this->auto2_.setPosition(320,800);
-           this->auto3_.setPosition(520,800);
+           this->auto1_.setPosition(120,900);
+           this->auto2_.setPosition(320,900);
+           this->auto3_.setPosition(520,900);
            destroyed_=false;
            gracz.setHp(gracz.getHp()-1);
        }

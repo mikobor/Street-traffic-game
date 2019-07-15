@@ -39,6 +39,11 @@ void cGracz::update()
     if(hp_==1)
         healthPoint_.setTexture(hp1);
 
+    if(hp_<=0)
+    {
+
+    }
+
     gracz_vel_ = gracz_vel_+0.0003f;
 
     this->gracz_.move(this->velocity);
@@ -74,6 +79,11 @@ void cGracz::setScore(int score1)
 int cGracz::getScore()
 {
     return this->score;
+}
+
+void cGracz::setPosition(float t_x, float t_y)
+{
+    this->gracz_.setPosition({t_x,t_y});
 }
 
 FloatRect cGracz::getGlobalBounds()

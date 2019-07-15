@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "chighscore.h"
 
 using namespace sf;
 
@@ -22,6 +23,7 @@ class cGracz :
     int score{ 0 };
 
 public:
+    cGracz()=default;
     cGracz(float t_x, float t_y);
     ~cGracz() override = default;
     void update();
@@ -29,6 +31,7 @@ public:
     int getHp();
     void setScore(int score1);
     int getScore();
+    void setPosition(float t_x,float t_y);
     FloatRect getGlobalBounds();
 
 };
